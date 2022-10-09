@@ -1,31 +1,36 @@
-function drawEvents(canvas, timeline) {
-    const startDate = timeline.startDate;
-    const endDate = timeline.endDate;
-    const events = timeline.events;
-    const ctx = canvas.getContext('2d');
+function drawEvents(canvas, timelines) {
+    var timelineorder = 0;
+    timelines.forEach(timeline => {
+        const startDate = timeline.startDate;
+        const endDate = timeline.endDate;
+        const startingPoint = getStartingPoint(canvas, timelines, timelineorder);
+        const endingPoint = getEndingPoint(canvas, timelines, timelineorder);
+        
+        const events = timeline.events;
+        const ctx = canvas.getContext('2d');
+    
+        events.forEach(event => {
+            const endPoint = drawEventLine(canvas, event, timeline, startingPoint, endingPoint);
+            const descriptionWidth = Math.ceil(
+                ctx.measureText(getLongestStringInArray(event.description.textlines, event.date.toLocaleDateString('sv-se')))
+                    .width
+            ) + 40;
+            const boxStartPoint = drawEventBox(canvas, event, endPoint, descriptionWidth);
+            printEventContent(canvas, event, boxStartPoint, descriptionWidth);
+        });
+        ctx.closePath();
 
-    events.forEach(event => {
-        const endPoint = drawEventLine(canvas, event, timeline);
-        const descriptionWidth = Math.ceil(
-            ctx.measureText(getLongestStringInArray(event.description.textlines, event.date.toLocaleDateString('sv-se')))
-                .width
-        ) + 40;
-        const boxStartPoint = drawEventBox(canvas, event, endPoint, descriptionWidth);
-        console.log(boxStartPoint);
-        printEventContent(canvas, event, boxStartPoint, descriptionWidth);
-    });
-    ctx.closePath();
+        ++timelineorder;
+    })
 }
 
 function getEventFont() {
     return { size: 20, style: "Arial" };
 }
 
-function drawEventLine(canvas, event, timeLine) {
-    const pointOnTimeLine = findPointOnTimeLine(event.date, timeLine, canvas);
-    console.log("Hungry Hippps", event.date, timeLine, canvas, pointOnTimeLine.y);
+function drawEventLine(canvas, event, timeLine, startingPoint, endingPoint) {
+    const pointOnTimeLine = findPointOnTimeLine(event.date, timeLine, startingPoint, endingPoint);
     const ctx = canvas.getContext('2d');
-    console.log(event.placement.isUp, event.placement.distance, pointOnTimeLine.y + (event.placement.isUp ? -1 : 1) * event.placement.distance);
 
     const y = pointOnTimeLine.y + (event.placement.isUp ? -1 : 1) * event.placement.distance;
     const endpoint = { x: pointOnTimeLine.x, y: y };

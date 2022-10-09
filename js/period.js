@@ -1,17 +1,23 @@
-function drawPeriods (canvas, timeline) {
+function drawPeriods (canvas, timelines) {
     const ctx = canvas.getContext('2d');
+    var timelineorder = 0;
+    timelines.forEach(timeline => {
+        const lineStartingPoint = getStartingPoint(canvas, timelines, timelineorder);
+        const lineEndingPoint = getEndingPoint(canvas, timelines, timelineorder);
+        timeline.periods.forEach(period => {
+            const startingPoint = drawPeriod(canvas, timeline, period, lineStartingPoint, lineEndingPoint);
+            drawPeriodText(canvas, period, startingPoint);
+        });
+    
+        ctx.closePath();
 
-    timeline.periods.forEach(period => {
-        const startingPoint = drawPeriod(canvas, timeline, period);
-        drawPeriodText(canvas, period, startingPoint);
-    });
-
-    ctx.closePath();
+        ++timelineorder;
+    })
 }
 
-function drawPeriod(canvas, timeline, period) {
-    const startingPointOnLine = findPointOnTimeLine(period.start, timeline, canvas);
-    const endingPointOnLine = findPointOnTimeLine(period.end, timeline, canvas);
+function drawPeriod(canvas, timeline, period, lineStartingPoint, lineEndingPoint) {
+    const startingPointOnLine = findPointOnTimeLine(period.start, timeline, lineStartingPoint, lineEndingPoint);
+    const endingPointOnLine = findPointOnTimeLine(period.end, timeline, lineStartingPoint, lineEndingPoint);
     const boxWidth = endingPointOnLine.x - startingPointOnLine.x;;
 
     const fontHeight = getFontHeight(canvas, true);

@@ -1,15 +1,23 @@
-function drawTimeLine(canvas, timeline) {
-    const startingPoint = getStartingPoint(canvas);
-    const endingPoint = getEndingPoint(canvas);
+function drawTimelines(canvas, timelines) {
+    var timelineorder = 0;
+
+    timelines.forEach(timeline => {
+        drawTimeline(canvas, timeline, timelineorder, timelines)
+        ++timelineorder;
+    });
+}
+
+function drawTimeline(canvas, timeline, timelineorder, timelines) {
+    const startingPoint = getStartingPoint(canvas, timelines, timelineorder);
+    const endingPoint = getEndingPoint(canvas, timelines, timelineorder);
 
     const startDate = new Date(timeline.startDate);
     const endDate = new Date(timeline.endDate);
 
     drawLine(canvas, startingPoint, endingPoint);
     drawDates(canvas, startingPoint, endingPoint, startDate, endDate);
-    drawMonthsText(canvas, timeline);
-    //drawYearText(canvas, timeLine);    
-
+    drawMonthsText(canvas, timeline, startingPoint, endingPoint);
+    drawHeader(canvas, timeline.name, startingPoint, timelines);
 }
 
 function drawLine(canvas, startingPoint, endingPoint) {
@@ -53,20 +61,33 @@ function drawDateText(canvas, x, y, date) {
     ctx.fillText(date.getDate(), x - center, y + height + 16);
 }
 
-function drawMonthsText(canvas, timeLine) {
+function drawMonthsText(canvas, timeLine, startingPoint, endingPoint) {
     var currentDate = new Date(timeLine.startDate);
     while (currentDate <= timeLine.endDate) {
-        drawMonthText(canvas, currentDate, timeLine);
+        drawMonthText(canvas, currentDate, timeLine, startingPoint, endingPoint);
         currentDate.addMonths(1);
     }
 }
 
-function drawMonthText(canvas, currentDate, timeLine) {
-    const pointOnLine = findPointOnTimeLine(currentDate, timeLine, canvas);
+function drawMonthText(canvas, currentDate, timeLine, startingPoint, endingPoint) {
+    const pointOnLine = findPointOnTimeLine(currentDate, timeLine, startingPoint, endingPoint);
     const ctx = canvas.getContext('2d');
-    const pixelsPerDay = getPixelsPerDay(timeLine.startDate, timeLine.endDate, getStartingPoint(canvas), getEndingPoint(canvas));
+    const pixelsPerDay = getPixelsPerDay(timeLine.startDate, timeLine.endDate, startingPoint, endingPoint);
 
     ctx.fillText(currentDate.getMonthName(), pointOnLine.x + pixelsPerDay + 5, pointOnLine.y - 5);
+}
+
+function drawHeader(canvas, header, startingPoint, timelines) {
+    const ctx = canvas.getContext('2d');
+    const headerFontHeight = 30;
+    const fontString = 'px sans-serif';
+    const fontHeight = getFontHeight(canvas, 0);
+    setFont(canvas, headerFontHeight + fontString);
+    const timelineCanvasHeight = canvas.height / timelines.length;
+
+    ctx.fillText(header, startingPoint.x, (startingPoint.y - timelineCanvasHeight/2) + headerFontHeight);
+
+    setFont(canvas, fontHeight + fontString);
 }
 
 function getDateLineHeight(date) {
@@ -79,24 +100,26 @@ function getPixelsPerDay(startDate, endDate, startingPoint, endingPoint) {
     return Math.floor(lineLength / numberOfDays);
 }
 
-function getStartingPoint(canvas) {
-    return { x: 100, y: canvas.height / 2 };
+function getStartingPoint(canvas, timelines, timelineorder) {
+    const timelineCanvasHeight = canvas.height / timelines.length;
+    const timelinePlacement = timelineCanvasHeight * (1/2 + timelineorder);
+
+    return { x: 100, y: timelinePlacement };
 }
 
-function getEndingPoint(canvas) {
-    const startingPoint = getStartingPoint(canvas);
+function getEndingPoint(canvas, timelines, timelineorder) {
+    const startingPoint = getStartingPoint(canvas, timelines, timelineorder);
 
     return { x: canvas.width - startingPoint.x, y: startingPoint.y };
 }
 
-function findPointOnTimeLine(dateTime, timeline, canvas) {
+function findPointOnTimeLine(dateTime, timeline, startingPoint, endingPoint) {
     const distanceToStart = (dateTime.getTime() - timeline.startDate.getTime()) / 1000;
 
     const secondsInADay = 24 * 60 * 60;
     const wholeDays = Math.ceil(distanceToStart / secondsInADay) - 1;
 
-    const pixelsPerDay = getPixelsPerDay(timeline.startDate, timeline.endDate, getStartingPoint(canvas), getEndingPoint(canvas));
-    const startingPoint = getStartingPoint(canvas);
+    const pixelsPerDay = getPixelsPerDay(timeline.startDate, timeline.endDate, startingPoint, endingPoint);
     const secondsInDate = dateTime.getHours() * 60 * 60 + dateTime.getMinutes() * 60 + dateTime.getSeconds();
     const startX = startingPoint.x + pixelsPerDay * wholeDays + (secondsInDate / secondsInADay) * pixelsPerDay;
 

@@ -1,13 +1,13 @@
-function bootstrapCanvas(canvas, timeline) {
-    resizeCanvas(canvas, timeline);
+function bootstrapCanvas(canvas, timelines) {
+    resizeCanvas(canvas, timelines);
     setBackgroundColor(canvas);
     setFont(canvas);
     getFontHeight(canvas);
 }
 
-function resizeCanvas(canvas) {
+function resizeCanvas(canvas, timelines) {
     canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerHeight * timelines.length;
 }
 
 function setBackgroundColor(canvas) {
@@ -19,9 +19,9 @@ function setBackgroundColor(canvas) {
     ctx.fillStyle = "#e5e6cc";
 }
 
-function setFont(canvas) {
+function setFont(canvas, font) {
     const ctx = canvas.getContext('2d');
-    ctx.font = '16px sans-serif';
+    ctx.font = font ? font : '16px sans-serif';
     ctx.closePath();
 }
 
