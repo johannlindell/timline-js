@@ -1,27 +1,36 @@
-function drawEvents(canvas, timelines) {
+function drawTimelineEvents(canvas, timelines) {
     var timelineorder = 0;
     timelines.forEach(timeline => {
-        const startDate = timeline.startDate;
-        const endDate = timeline.endDate;
-        const startingPoint = getStartingPoint(canvas, timelines, timelineorder);
-        const endingPoint = getEndingPoint(canvas, timelines, timelineorder);
-        
-        const events = timeline.events;
-        const ctx = canvas.getContext('2d');
-    
-        events.forEach(event => {
-            const endPoint = drawEventLine(canvas, event, timeline, startingPoint, endingPoint);
-            const descriptionWidth = Math.ceil(
-                ctx.measureText(getLongestStringInArray(event.description.textlines, event.date.toLocaleDateString('sv-se')))
-                    .width
-            ) + 40;
-            const boxStartPoint = drawEventBox(canvas, event, endPoint, descriptionWidth);
-            printEventContent(canvas, event, boxStartPoint, descriptionWidth);
-        });
-        ctx.closePath();
-
+        drawEvents(canvas, timeline, timelines, timelineorder)
         ++timelineorder;
     })
+}
+
+function drawEvents(canvas, timeline, timelines, timelineorder) {
+    const startDate = timeline.startDate;
+    const endDate = timeline.endDate;
+    const startingPoint = getStartingPoint(canvas, timelines, timelineorder);
+    const endingPoint = getEndingPoint(canvas, timelines, timelineorder);
+    
+    const events = timeline.events;
+    const ctx = canvas.getContext('2d');
+
+    events.forEach(event => {
+        drawEvent(canvas, event, timeline, startingPoint, endingPoint);
+    });
+    ctx.closePath();
+
+}
+
+function drawEvent(canvas, event, timeline, startingPoint, endingPoint) {
+    const ctx = canvas.getContext('2d');
+    const endPoint = drawEventLine(canvas, event, timeline, startingPoint, endingPoint);
+    const descriptionWidth = Math.ceil(
+        ctx.measureText(getLongestStringInArray(event.description.textlines, new Date(event.date).toLocaleDateString('sv-se')))
+            .width
+    ) + 40;
+    const boxStartPoint = drawEventBox(canvas, event, endPoint, descriptionWidth);
+    printEventContent(canvas, event, boxStartPoint, descriptionWidth);
 }
 
 function getEventFont() {
@@ -29,7 +38,7 @@ function getEventFont() {
 }
 
 function drawEventLine(canvas, event, timeLine, startingPoint, endingPoint) {
-    const pointOnTimeLine = findPointOnTimeLine(event.date, timeLine, startingPoint, endingPoint);
+    const pointOnTimeLine = findPointOnTimeLine(new Date(event.date), timeLine, startingPoint, endingPoint);
     const ctx = canvas.getContext('2d');
 
     const y = pointOnTimeLine.y + (event.placement.isUp ? -1 : 1) * event.placement.distance;
@@ -63,7 +72,7 @@ function printEventContent(canvas, event, boxStartPoint) {
     const dateStartPoint = { x: boxStartPoint.x + 10, y: boxStartPoint.y + 21 };
     var nextStartPoint = { x: dateStartPoint.x, y: dateStartPoint.y + 22 };
     ctx.fillStyle = "white";
-    ctx.fillText(event.date.toLocaleDateString('sv-se'), dateStartPoint.x, dateStartPoint.y);
+    ctx.fillText(new Date(event.date).toLocaleDateString('sv-se'), dateStartPoint.x, dateStartPoint.y);
 
     event.description.textlines.forEach(textline => {
         ctx.fillText(textline, nextStartPoint.x, nextStartPoint.y);
