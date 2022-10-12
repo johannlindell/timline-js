@@ -63,7 +63,7 @@ function drawDateText(canvas, x, y, date) {
 
 function drawMonthsText(canvas, timeLine, startingPoint, endingPoint) {
     var currentDate = new Date(timeLine.startDate);
-    while (currentDate <= timeLine.endDate) {
+    while (currentDate <= new Date(timeLine.endDate)) {
         drawMonthText(canvas, currentDate, timeLine, startingPoint, endingPoint);
         currentDate.addMonths(1);
     }
