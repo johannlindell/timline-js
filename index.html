@@ -9,6 +9,7 @@
     <script src="js/routing.js"></script>
     <script src="js/listTimelines.js"></script>
     <script src="js/fetchData.js"></script>
+    <script src="js/export/image.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             bootstrap();
@@ -29,6 +30,7 @@
     <body css="margin:0">
         <div id="container" class="flex-container" >
             <div id="timelines">
+                <div onclick="downloadFile();">Hämta bild</div>
                 <h2>Timelines</h2>
                 <div id="timelineslist"></div>
             </div>  
