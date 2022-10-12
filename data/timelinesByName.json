@@ -1,0 +1,10 @@
+{
+    "Orders": {
+        "linkName": "Orders",
+        "file": "test.json"
+    },
+    "Test": {
+        "linkName": "Test",
+        "file": "test.json"
+    }
+}

@@ -2,22 +2,26 @@ function drawPeriods (canvas, timelines) {
     const ctx = canvas.getContext('2d');
     var timelineorder = 0;
     timelines.forEach(timeline => {
-        const lineStartingPoint = getStartingPoint(canvas, timelines, timelineorder);
-        const lineEndingPoint = getEndingPoint(canvas, timelines, timelineorder);
-        timeline.periods.forEach(period => {
-            const startingPoint = drawPeriod(canvas, timeline, period, lineStartingPoint, lineEndingPoint);
-            drawPeriodText(canvas, period, startingPoint);
-        });
-    
-        ctx.closePath();
-
+        drawTimelinePeriod(canvas, timeline, timelines, timelineorder);
         ++timelineorder;
     })
 }
 
+function drawTimelinePeriod(canvas, timeline, timelines, timelineorder) {
+    const ctx = canvas.getContext('2d');
+    const lineStartingPoint = getStartingPoint(canvas, timelines, timelineorder);
+    const lineEndingPoint = getEndingPoint(canvas, timelines, timelineorder);
+    timeline.periods.forEach(period => {
+        const startingPoint = drawPeriod(canvas, timeline, period, lineStartingPoint, lineEndingPoint);
+        drawPeriodText(canvas, period, startingPoint);
+    });
+
+    ctx.closePath();
+}
+
 function drawPeriod(canvas, timeline, period, lineStartingPoint, lineEndingPoint) {
-    const startingPointOnLine = findPointOnTimeLine(period.start, timeline, lineStartingPoint, lineEndingPoint);
-    const endingPointOnLine = findPointOnTimeLine(period.end, timeline, lineStartingPoint, lineEndingPoint);
+    const startingPointOnLine = findPointOnTimeLine(new Date(period.start), timeline, lineStartingPoint, lineEndingPoint);
+    const endingPointOnLine = findPointOnTimeLine(new Date(period.end), timeline, lineStartingPoint, lineEndingPoint);
     const boxWidth = endingPointOnLine.x - startingPointOnLine.x;;
 
     const fontHeight = getFontHeight(canvas, true);

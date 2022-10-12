@@ -95,7 +95,7 @@ function getDateLineHeight(date) {
 }
 
 function getPixelsPerDay(startDate, endDate, startingPoint, endingPoint) {
-    const numberOfDays = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000);
+    const numberOfDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (24 * 60 * 60 * 1000);
     const lineLength = endingPoint.x - startingPoint.x;
     return Math.floor(lineLength / numberOfDays);
 }
@@ -114,7 +114,7 @@ function getEndingPoint(canvas, timelines, timelineorder) {
 }
 
 function findPointOnTimeLine(dateTime, timeline, startingPoint, endingPoint) {
-    const distanceToStart = (dateTime.getTime() - timeline.startDate.getTime()) / 1000;
+    const distanceToStart = (dateTime.getTime() - new Date(timeline.startDate).getTime()) / 1000;
 
     const secondsInADay = 24 * 60 * 60;
     const wholeDays = Math.ceil(distanceToStart / secondsInADay) - 1;

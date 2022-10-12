@@ -1,0 +1,246 @@
+{
+    "Orders": [
+        {
+            "name": "Bas",
+            "startDate": "2022-01-01T00:00:00.000",
+            "endDate": "2022-03-01T00:00:00.000Z",
+            "events": [
+                {
+                    "date": "2022-01-15T08:13:33.000",
+                    "description": {
+                        "textlines": [
+                            "Order Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                },
+                {
+                    "date": "2022-02-15T03:00:00.000",
+                    "description": {
+                        "textlines": [
+                            "Invoice created",
+                            "For Bas",
+                            "Periods:",
+                            "2022-01-15 - 2022-02-14 Bas 100% discount",
+                            "2022-02-15 - 2022-02-28 Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                }
+            ],
+            "periods": [
+                {
+                    "start": "2022-01-15T08:13:13.000Z",
+                    "end": "2022-02-14T23:59:59.000Z",
+                    "description": {
+                        "textlines": [
+                            "Free trial period"
+                        ],
+                        "color": "#369636"
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 30
+                    },
+                    "backgroundColor": "lightgrey"
+                }
+            ]
+        },
+        {
+            "name": "Plus",
+            "startDate": "2022-01-01T00:00:00.000Z",
+            "endDate": "2022-03-01T00:00:00.000Z",
+            "events": [
+                {
+                    "date": "2022-01-15T08:13:33.000Z",
+                    "description": {
+                        "textlines": [
+                            "Order Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                },
+                {
+                    "date": "2022-02-15T03:00:00.000Z",
+                    "description": {
+                        "textlines": [
+                            "Invoice created",
+                            "For Bas",
+                            "Periods:",
+                            "2022-01-15 - 2022-02-14 Bas 100% discount",
+                            "2022-02-15 - 2022-02-28 Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                }
+            ],
+            "periods": [
+                {
+                    "start": "2022-01-15T08:13:13.000Z",
+                    "end": "2022-02-14T23:59:59.000Z",
+                    "description": {
+                        "textlines": [
+                            "Free trial period"
+                        ],
+                        "color": "#369636"
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 30
+                    },
+                    "backgroundColor": "lightgrey"
+                }
+            ]
+        }
+    ],
+    "Test": [
+        {
+            "name": "Bas Test",
+            "startDate": "2022-01-01T00:00:00.000",
+            "endDate": "2022-03-01T00:00:00.000Z",
+            "events": [
+                {
+                    "date": "2022-01-15T08:13:33.000",
+                    "description": {
+                        "textlines": [
+                            "Order Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                },
+                {
+                    "date": "2022-02-15T03:00:00.000",
+                    "description": {
+                        "textlines": [
+                            "Invoice created",
+                            "For Bas",
+                            "Periods:",
+                            "2022-01-15 - 2022-02-14 Bas 100% discount",
+                            "2022-02-15 - 2022-02-28 Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                }
+            ],
+            "periods": [
+                {
+                    "start": "2022-01-15T08:13:13.000Z",
+                    "end": "2022-02-14T23:59:59.000Z",
+                    "description": {
+                        "textlines": [
+                            "Free trial period"
+                        ],
+                        "color": "#369636"
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 30
+                    },
+                    "backgroundColor": "lightgrey"
+                }
+            ]
+        },
+        {
+            "name": "Plus",
+            "startDate": "2022-01-01T00:00:00.000Z",
+            "endDate": "2022-03-01T00:00:00.000Z",
+            "events": [
+                {
+                    "date": "2022-01-15T08:13:33.000Z",
+                    "description": {
+                        "textlines": [
+                            "Order Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                },
+                {
+                    "date": "2022-02-15T03:00:00.000Z",
+                    "description": {
+                        "textlines": [
+                            "Invoice created",
+                            "For Bas",
+                            "Periods:",
+                            "2022-01-15 - 2022-02-14 Bas 100% discount",
+                            "2022-02-15 - 2022-02-28 Bas"
+                        ]
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 70
+                    },
+                    "styles": {
+                        "textColor": "#369636",
+                        "backgroundColor": "green"
+                    }
+                }
+            ],
+            "periods": [
+                {
+                    "start": "2022-01-15T08:13:13.000Z",
+                    "end": "2022-02-14T23:59:59.000Z",
+                    "description": {
+                        "textlines": [
+                            "Free trial period"
+                        ],
+                        "color": "#369636"
+                    },
+                    "placement": {
+                        "isUp": true,
+                        "distance": 30
+                    },
+                    "backgroundColor": "lightgrey"
+                }
+            ]
+        }
+    ]
+}
