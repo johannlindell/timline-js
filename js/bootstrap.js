@@ -18,9 +18,6 @@ function bootstrap() {
 function getCanvas() {
     return document.getElementById("canvas");
 }
-function getPath() {
-    return window.location.pathname.slice(1);
-}
 
 function drawTimelineInformation(canvas, timelines) {
     drawTimelines(canvas, timelines);

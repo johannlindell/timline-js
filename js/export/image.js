@@ -6,7 +6,7 @@ function createPng() {
 function downloadFile() {
     const image = createPng();
     const aElement = document.createElement('a');
-    aElement.setAttribute('download', "timeline.png");
+    aElement.setAttribute('download', getPath() + ".png");
     const href = image;
     aElement.href = href;
 

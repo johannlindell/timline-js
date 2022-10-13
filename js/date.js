@@ -5,7 +5,6 @@ function expandDate () {
     }
 
     Date.prototype.addMonths = function (months) {
-        //needs to handle different dates and end of months
         var currentMonth = this.getMonth();
         var newMonth = currentMonth + months;
         this.setMonth(newMonth)
